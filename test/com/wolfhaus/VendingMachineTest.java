@@ -25,4 +25,19 @@ public class VendingMachineTest {
         coinAttributes = new Coin(56, 20);
         assertEquals(vendingMachine.InvalidCoin, vendingMachine.IdentifyCoin(coinAttributes));
     }
+
+    @Test
+    public void acceptCoinTest() {
+        VendingMachine vendingMachine = new VendingMachine();
+
+        // Determine what type of coin this is
+        Coin coinAttributes = new Coin(25, 6);
+        Coin coin = vendingMachine.IdentifyCoin(coinAttributes);
+
+        // Insert this coin into the machine
+        vendingMachine.InsertCoin(coin);
+
+        assertEquals(vendingMachine.Quarter, vendingMachine.InsertedCoins.get(0));
+        assertEquals(1, vendingMachine.InsertedCoins.size());
+    }
 }

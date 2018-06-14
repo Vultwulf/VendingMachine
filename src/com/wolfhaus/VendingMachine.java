@@ -1,11 +1,15 @@
 package com.wolfhaus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VendingMachine {
 
     protected Coin Quarter;
     protected Coin Nickel;
     protected Coin Dime;
     protected Coin InvalidCoin;
+    protected List<Coin> InsertedCoins = new ArrayList<Coin>();
 
     public VendingMachine(){
         this.Quarter = new Coin(25, 6, 25);
@@ -31,5 +35,10 @@ public class VendingMachine {
         }
 
         return this.InvalidCoin;
+    }
+
+    public void InsertCoin(Coin coin)
+    {
+        this.InsertedCoins.add(coin);
     }
 }
