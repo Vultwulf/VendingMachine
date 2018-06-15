@@ -2,10 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="project-vending_main" target="1.8" />
-      <module name="project-vending_test" target="1.8" />
-      <module name="project-vendingmachine_main" target="1.8" />
-      <module name="project-vendingmachine_test" target="1.8" />
+      <module name="VendingMachine_main" target="1.8" />
+      <module name="VendingMachine_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
