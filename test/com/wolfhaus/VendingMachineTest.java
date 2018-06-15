@@ -45,7 +45,12 @@ public class VendingMachineTest {
 
         // Determine what the coin is by the attributes of the coin
         assertEquals(this.VendingMachine.Quarter, this.VendingMachine.InsertedCoins.get(0));
+
+        // There should be one coin in the InsertedCoins list
         assertEquals(1, this.VendingMachine.InsertedCoins.size());
+
+        // This one coin should have a value of 25
+        assertEquals(25, this.VendingMachine.InsertedCoins.get(0).Value);
     }
 
     @Test
@@ -68,7 +73,6 @@ public class VendingMachineTest {
         assertEquals("THANK YOU", this.VendingMachine.Display);
         assertEquals(0, this.VendingMachine.InsertedCoinsValue);
     }
-
 
     @Test
     public void selectProductSoldOut() {
@@ -113,7 +117,7 @@ public class VendingMachineTest {
         this.VendingMachine.InsertCoin(coin);
         this.VendingMachine.InsertCoin(coin);
 
-        // Expect 35 cents back
+        // Expect 45 cents back
         List<Coin> returnedCoins = this.VendingMachine.SelectProduct("A2");
         assertEquals("THANK YOU", this.VendingMachine.Display);
 
