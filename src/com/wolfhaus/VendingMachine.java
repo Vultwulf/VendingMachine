@@ -10,12 +10,20 @@ public class VendingMachine {
     protected Coin Dime;
     protected Coin InvalidCoin;
     protected List<Coin> InsertedCoins = new ArrayList<Coin>();
+    protected List<Product> Products = new ArrayList<Product>();
+    protected String Display;
+    protected double InsertedCoinsValue;
 
     public VendingMachine(){
         this.Quarter = new Coin(25, 6, 25);
         this.Nickel = new Coin(21, 5, 5);
         this.Dime = new Coin(18, 2, 10);
         this.InvalidCoin = new Coin();
+
+        // Add the initial products
+        this.Products.add(new Product("cola", 1.00, "A1", 1));
+        this.Products.add(new Product("chips", 0.5, "A2", 1));
+        this.Products.add(new Product("cola", 0.65, "A3", 1));
     }
 
     public Coin IdentifyCoin(Coin coin) {
@@ -40,5 +48,15 @@ public class VendingMachine {
     public void InsertCoin(Coin coin)
     {
         this.InsertedCoins.add(coin);
+        InsertedCoinsValue += coin.Value;
+    }
+
+    public void SelectProduct(String button)
+    {
+        Product selectedProduct = this.Products.stream().filter(p -> p.Button.equals(button)).findFirst().orElse(null);
+
+        if(InsertedCoinsValue < selectedProduct.Price) {
+            this.Display = "INSERT COIN";
+        }
     }
 }

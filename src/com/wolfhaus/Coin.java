@@ -3,9 +3,9 @@ package com.wolfhaus;
 public class Coin {
     protected int Size;
     protected int Weight;
-    protected int Value;
+    protected double Value;
 
-    public Coin(int coinSize, int coinWeight, int coinValue)
+    public Coin(int coinSize, int coinWeight, double coinValue)
     {
         this.Size = coinSize;
         this.Weight = coinWeight;

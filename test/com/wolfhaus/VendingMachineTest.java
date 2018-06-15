@@ -40,4 +40,12 @@ public class VendingMachineTest {
         assertEquals(vendingMachine.Quarter, vendingMachine.InsertedCoins.get(0));
         assertEquals(1, vendingMachine.InsertedCoins.size());
     }
+
+    @Test
+    public void selectProductTest() {
+        VendingMachine vendingMachine = new VendingMachine();
+
+        vendingMachine.SelectProduct("A1");
+        assertEquals("INSERT COIN", vendingMachine.Display);
+    }
 }
