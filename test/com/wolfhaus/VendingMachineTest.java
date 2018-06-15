@@ -3,6 +3,8 @@ package com.wolfhaus;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class VendingMachineTest {
@@ -63,6 +65,32 @@ public class VendingMachineTest {
 
         this.VendingMachine.SelectProduct("A2");
         assertEquals("THANK YOU", this.VendingMachine.Display);
-        assertEquals((double)0, this.VendingMachine.InsertedCoinsValue, 0);
+        assertEquals(0, this.VendingMachine.InsertedCoinsValue);
+    }
+
+    @Test
+    public void returnCoinTest() {
+        // Insert three quarters
+        Coin coinAttributes = new Coin(25, 6);
+        Coin coin = this.VendingMachine.IdentifyCoin(coinAttributes);
+        this.VendingMachine.InsertCoin(coin);
+        this.VendingMachine.InsertCoin(coin);
+        this.VendingMachine.InsertCoin(coin);
+
+        // Insert one dime
+        coinAttributes = new Coin(18, 2);
+        coin = this.VendingMachine.IdentifyCoin(coinAttributes);
+        this.VendingMachine.InsertCoin(coin);
+
+        // Expect 35 cents back
+        this.VendingMachine.SelectProduct("A2");
+        assertEquals("THANK YOU", this.VendingMachine.Display);
+        assertEquals(35, this.VendingMachine.InsertedCoinsValue);
+
+        // Expect one quarter, one dime back
+        List<Coin> returnedCoins = this.VendingMachine.ReturnCoin();
+        assertEquals(2, returnedCoins.size());
+        assertEquals(25, returnedCoins.get(0).Value);
+        assertEquals(10, returnedCoins.get(1).Value);
     }
 }

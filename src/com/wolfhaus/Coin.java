@@ -1,11 +1,13 @@
 package com.wolfhaus;
 
+import java.math.BigDecimal;
+
 public class Coin {
     protected int Size;
     protected int Weight;
-    protected double Value;
+    protected int Value;
 
-    public Coin(int coinSize, int coinWeight, double coinValue)
+    public Coin(int coinSize, int coinWeight, int coinValue)
     {
         this.Size = coinSize;
         this.Weight = coinWeight;

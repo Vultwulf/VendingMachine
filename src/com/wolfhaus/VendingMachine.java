@@ -12,18 +12,18 @@ public class VendingMachine {
     protected List<Coin> InsertedCoins = new ArrayList<Coin>();
     protected List<Product> Products = new ArrayList<Product>();
     protected String Display;
-    protected double InsertedCoinsValue;
+    protected int InsertedCoinsValue;
 
     public VendingMachine(){
-        this.Quarter = new Coin(25, 6, 0.25);
-        this.Nickel = new Coin(21, 5, 0.5);
-        this.Dime = new Coin(18, 2, 0.10);
+        this.Quarter = new Coin(25, 6, 25);
+        this.Nickel = new Coin(21, 5, 50);
+        this.Dime = new Coin(18, 2, 10);
         this.InvalidCoin = new Coin();
 
         // Add the initial products
-        this.Products.add(new Product("cola", 1.00, "A1", 1));
-        this.Products.add(new Product("chips", 0.5, "A2", 1));
-        this.Products.add(new Product("cola", 0.65, "A3", 1));
+        this.Products.add(new Product("cola", 100, "A1", 1));
+        this.Products.add(new Product("chips", 50, "A2", 1));
+        this.Products.add(new Product("cola", 65, "A3", 1));
     }
 
     public Coin IdentifyCoin(Coin coin) {
@@ -49,6 +49,33 @@ public class VendingMachine {
     {
         this.InsertedCoins.add(coin);
         InsertedCoinsValue += coin.Value;
+    }
+
+    public List<Coin> ReturnCoin()
+    {
+        List<Coin> returnedCoins = new ArrayList<Coin>();
+        // We must make change for the remaining InsertedCoinsValue
+
+        while(this.InsertedCoinsValue > 0)
+        {
+            Coin coin;
+            if(InsertedCoinsValue >= 25)
+            {
+                coin = new Coin(25, 6, 25);
+                returnedCoins.add(coin);
+            } else if(InsertedCoinsValue >= 10)
+            {
+                coin = new Coin(18, 2, 10);
+                returnedCoins.add(coin);
+
+            } else {
+                coin = new Coin(21, 5, 5);
+                returnedCoins.add(coin);
+            }
+            this.InsertedCoinsValue -= coin.Value;
+        }
+
+        return returnedCoins;
     }
 
     public void SelectProduct(String button)
