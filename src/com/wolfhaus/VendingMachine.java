@@ -13,10 +13,11 @@ public class VendingMachine {
     protected List<Product> Products = new ArrayList<Product>();
     protected String Display;
     protected int InsertedCoinsValue;
+    protected boolean ExactChangeOnly = false;
 
     public VendingMachine(){
         this.Quarter = new Coin(25, 6, 25);
-        this.Nickel = new Coin(21, 5, 50);
+        this.Nickel = new Coin(21, 5, 5);
         this.Dime = new Coin(18, 2, 10);
         this.InvalidCoin = new Coin();
 
@@ -83,7 +84,11 @@ public class VendingMachine {
         Product selectedProduct = this.Products.stream().filter(p -> p.Button.equals(button)).findFirst().orElse(null);
 
         if(this.InsertedCoinsValue < selectedProduct.Price) {
-            this.Display = "INSERT COIN";
+            if(this.ExactChangeOnly) {
+                this.Display = "EXACT CHANGE ONLY";
+            } else {
+                this.Display = "INSERT COIN";
+            }
         } else if(selectedProduct.Count > 0) {
             this.Display = "THANK YOU";
             this.InsertedCoinsValue -= selectedProduct.Price;
