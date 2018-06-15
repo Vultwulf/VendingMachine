@@ -6,6 +6,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/project-vending.iml" filepath="$PROJECT_DIR$/.idea/modules/project-vending.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/project-vending_main.iml" filepath="$PROJECT_DIR$/.idea/modules/project-vending_main.iml" group="project-vending" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/project-vending_test.iml" filepath="$PROJECT_DIR$/.idea/modules/project-vending_test.iml" group="project-vending" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/project-vendingmachine.iml" filepath="$PROJECT_DIR$/.idea/modules/project-vendingmachine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/project-vendingmachine_main.iml" filepath="$PROJECT_DIR$/.idea/modules/project-vendingmachine_main.iml" group="project-vendingmachine" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/project-vendingmachine_test.iml" filepath="$PROJECT_DIR$/.idea/modules/project-vendingmachine_test.iml" group="project-vendingmachine" />
     </modules>
   </component>
 </project>
