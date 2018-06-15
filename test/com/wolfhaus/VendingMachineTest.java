@@ -42,10 +42,25 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void selectProductTest() {
+    public void selectProductTestWithMoney() {
         VendingMachine vendingMachine = new VendingMachine();
 
         vendingMachine.SelectProduct("A1");
         assertEquals("INSERT COIN", vendingMachine.Display);
+    }
+
+    @Test
+    public void selectProductChipsWithNoMoney() {
+        VendingMachine vendingMachine = new VendingMachine();
+
+        Coin coinAttributes = new Coin(25, 6);
+        Coin coin = vendingMachine.IdentifyCoin(coinAttributes);
+
+        vendingMachine.InsertCoin(coin);
+        vendingMachine.InsertCoin(coin);
+
+        vendingMachine.SelectProduct("A2");
+        assertEquals("THANK YOU", vendingMachine.Display);
+        assertEquals((double)0, vendingMachine.InsertedCoinsValue, 0);
     }
 }

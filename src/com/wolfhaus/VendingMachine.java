@@ -15,9 +15,9 @@ public class VendingMachine {
     protected double InsertedCoinsValue;
 
     public VendingMachine(){
-        this.Quarter = new Coin(25, 6, 25);
-        this.Nickel = new Coin(21, 5, 5);
-        this.Dime = new Coin(18, 2, 10);
+        this.Quarter = new Coin(25, 6, 0.25);
+        this.Nickel = new Coin(21, 5, 0.5);
+        this.Dime = new Coin(18, 2, 0.10);
         this.InvalidCoin = new Coin();
 
         // Add the initial products
@@ -55,8 +55,11 @@ public class VendingMachine {
     {
         Product selectedProduct = this.Products.stream().filter(p -> p.Button.equals(button)).findFirst().orElse(null);
 
-        if(InsertedCoinsValue < selectedProduct.Price) {
+        if(this.InsertedCoinsValue < selectedProduct.Price) {
             this.Display = "INSERT COIN";
+        } else {
+            this.Display = "THANK YOU";
+            this.InsertedCoinsValue -= selectedProduct.Price;
         }
     }
 }
