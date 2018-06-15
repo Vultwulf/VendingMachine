@@ -38,31 +38,32 @@ public class VendingMachineTest {
 
     @Test
     public void acceptCoinTest() {
-        // Determine what type of coin this is
+        // Insert one quarter
         Coin coinAttributes = new Coin(25, 6);
         Coin coin = this.VendingMachine.IdentifyCoin(coinAttributes);
-
-        // Insert this coin into the machine
         this.VendingMachine.InsertCoin(coin);
 
+        // Determine what the coin is by the attributes of the coin
         assertEquals(this.VendingMachine.Quarter, this.VendingMachine.InsertedCoins.get(0));
         assertEquals(1, this.VendingMachine.InsertedCoins.size());
     }
 
     @Test
     public void selectProductColaWithNoMoneyTest() {
+        // Select a product
         this.VendingMachine.SelectProduct("A1");
         assertEquals("INSERT COIN", this.VendingMachine.Display);
     }
 
     @Test
     public void selectProductChipsWithMoneyTest() {
+        // Insert two quarters
         Coin coinAttributes = new Coin(25, 6);
         Coin coin = this.VendingMachine.IdentifyCoin(coinAttributes);
-
         this.VendingMachine.InsertCoin(coin);
         this.VendingMachine.InsertCoin(coin);
 
+        // Select a product
         this.VendingMachine.SelectProduct("A2");
         assertEquals("THANK YOU", this.VendingMachine.Display);
         assertEquals(0, this.VendingMachine.InsertedCoinsValue);
@@ -71,19 +72,22 @@ public class VendingMachineTest {
 
     @Test
     public void selectProductSoldOut() {
+        // Insert two quarters
         Coin coinAttributes = new Coin(25, 6);
         Coin coin = this.VendingMachine.IdentifyCoin(coinAttributes);
-
         this.VendingMachine.InsertCoin(coin);
         this.VendingMachine.InsertCoin(coin);
 
+        // Select a product
         this.VendingMachine.SelectProduct("A2");
         assertEquals("THANK YOU", this.VendingMachine.Display);
         assertEquals(0, this.VendingMachine.InsertedCoinsValue);
 
+        // Insert two quarters
         this.VendingMachine.InsertCoin(coin);
         this.VendingMachine.InsertCoin(coin);
 
+        // Select a product
         this.VendingMachine.SelectProduct("A2");
         assertEquals("SOLD OUT", this.VendingMachine.Display);
 
@@ -103,14 +107,32 @@ public class VendingMachineTest {
         coin = this.VendingMachine.IdentifyCoin(coinAttributes);
         this.VendingMachine.InsertCoin(coin);
 
+        // Insert two nickels
+        coinAttributes = new Coin(21, 5);
+        coin = this.VendingMachine.IdentifyCoin(coinAttributes);
+        this.VendingMachine.InsertCoin(coin);
+        this.VendingMachine.InsertCoin(coin);
+
         // Expect 35 cents back
         List<Coin> returnedCoins = this.VendingMachine.SelectProduct("A2");
         assertEquals("THANK YOU", this.VendingMachine.Display);
 
         // Expect one quarter, one dime back
-        assertEquals(2, returnedCoins.size());
+        assertEquals(3, returnedCoins.size());
         assertEquals(25, returnedCoins.get(0).Value);
         assertEquals(10, returnedCoins.get(1).Value);
+        assertEquals(10, returnedCoins.get(2).Value);
     }
 
+    @Test
+    public void exactChangeTest() {
+        // Test the normal mode functionality first
+        this.VendingMachine.SelectProduct("A1");
+        assertEquals("INSERT COIN", this.VendingMachine.Display);
+
+        // Set the machine to Exact Change Only mode
+        this.VendingMachine.ExactChangeOnly = true;
+        this.VendingMachine.SelectProduct("A1");
+        assertEquals("EXACT CHANGE ONLY", this.VendingMachine.Display);
+    }
 }
