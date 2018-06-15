@@ -83,12 +83,10 @@ public class VendingMachineTest {
         this.VendingMachine.InsertCoin(coin);
 
         // Expect 35 cents back
-        this.VendingMachine.SelectProduct("A2");
+        List<Coin> returnedCoins = this.VendingMachine.SelectProduct("A2");
         assertEquals("THANK YOU", this.VendingMachine.Display);
-        assertEquals(35, this.VendingMachine.InsertedCoinsValue);
 
         // Expect one quarter, one dime back
-        List<Coin> returnedCoins = this.VendingMachine.ReturnCoin();
         assertEquals(2, returnedCoins.size());
         assertEquals(25, returnedCoins.get(0).Value);
         assertEquals(10, returnedCoins.get(1).Value);

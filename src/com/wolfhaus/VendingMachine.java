@@ -78,7 +78,7 @@ public class VendingMachine {
         return returnedCoins;
     }
 
-    public void SelectProduct(String button)
+    public List<Coin> SelectProduct(String button)
     {
         Product selectedProduct = this.Products.stream().filter(p -> p.Button.equals(button)).findFirst().orElse(null);
 
@@ -87,6 +87,12 @@ public class VendingMachine {
         } else {
             this.Display = "THANK YOU";
             this.InsertedCoinsValue -= selectedProduct.Price;
+
+            if(this.InsertedCoinsValue > 0) {
+                return this.ReturnCoin();
+            }
         }
+
+        return new ArrayList<Coin>();
     }
 }
