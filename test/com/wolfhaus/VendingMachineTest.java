@@ -1,66 +1,68 @@
 package com.wolfhaus;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class VendingMachineTest {
 
+    private VendingMachine VendingMachine;
+
     public VendingMachineTest() {
 
     }
 
+    @Before
+    public void setUp() {
+        // Instantiate the VendingMachine object
+        this.VendingMachine = new VendingMachine();
+    }
+
     @Test
     public void identifyCoinTest() {
-        VendingMachine vendingMachine = new VendingMachine();
         Coin coinAttributes = new Coin(25, 6);
-        assertEquals(vendingMachine.Quarter, vendingMachine.IdentifyCoin(coinAttributes));
+        assertEquals(this.VendingMachine.Quarter, this.VendingMachine.IdentifyCoin(coinAttributes));
 
         coinAttributes = new Coin(21, 5);
-        assertEquals(vendingMachine.Nickel, vendingMachine.IdentifyCoin(coinAttributes));
+        assertEquals(this.VendingMachine.Nickel, this.VendingMachine.IdentifyCoin(coinAttributes));
 
         coinAttributes = new Coin(18, 2);
-        assertEquals(vendingMachine.Dime, vendingMachine.IdentifyCoin(coinAttributes));
+        assertEquals(this.VendingMachine.Dime, this.VendingMachine.IdentifyCoin(coinAttributes));
 
         coinAttributes = new Coin(56, 20);
-        assertEquals(vendingMachine.InvalidCoin, vendingMachine.IdentifyCoin(coinAttributes));
+        assertEquals(this.VendingMachine.InvalidCoin, this.VendingMachine.IdentifyCoin(coinAttributes));
     }
 
     @Test
     public void acceptCoinTest() {
-        VendingMachine vendingMachine = new VendingMachine();
-
         // Determine what type of coin this is
         Coin coinAttributes = new Coin(25, 6);
-        Coin coin = vendingMachine.IdentifyCoin(coinAttributes);
+        Coin coin = this.VendingMachine.IdentifyCoin(coinAttributes);
 
         // Insert this coin into the machine
-        vendingMachine.InsertCoin(coin);
+        this.VendingMachine.InsertCoin(coin);
 
-        assertEquals(vendingMachine.Quarter, vendingMachine.InsertedCoins.get(0));
-        assertEquals(1, vendingMachine.InsertedCoins.size());
+        assertEquals(this.VendingMachine.Quarter, this.VendingMachine.InsertedCoins.get(0));
+        assertEquals(1, this.VendingMachine.InsertedCoins.size());
     }
 
     @Test
-    public void selectProductTestWithMoney() {
-        VendingMachine vendingMachine = new VendingMachine();
-
-        vendingMachine.SelectProduct("A1");
-        assertEquals("INSERT COIN", vendingMachine.Display);
+    public void selectProductColaWithNoMoneyTest() {
+        this.VendingMachine.SelectProduct("A1");
+        assertEquals("INSERT COIN", this.VendingMachine.Display);
     }
 
     @Test
-    public void selectProductChipsWithNoMoney() {
-        VendingMachine vendingMachine = new VendingMachine();
-
+    public void selectProductChipsWithMoneyTest() {
         Coin coinAttributes = new Coin(25, 6);
-        Coin coin = vendingMachine.IdentifyCoin(coinAttributes);
+        Coin coin = this.VendingMachine.IdentifyCoin(coinAttributes);
 
-        vendingMachine.InsertCoin(coin);
-        vendingMachine.InsertCoin(coin);
+        this.VendingMachine.InsertCoin(coin);
+        this.VendingMachine.InsertCoin(coin);
 
-        vendingMachine.SelectProduct("A2");
-        assertEquals("THANK YOU", vendingMachine.Display);
-        assertEquals((double)0, vendingMachine.InsertedCoinsValue, 0);
+        this.VendingMachine.SelectProduct("A2");
+        assertEquals("THANK YOU", this.VendingMachine.Display);
+        assertEquals((double)0, this.VendingMachine.InsertedCoinsValue, 0);
     }
 }
