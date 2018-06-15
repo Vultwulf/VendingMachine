@@ -84,13 +84,17 @@ public class VendingMachine {
 
         if(this.InsertedCoinsValue < selectedProduct.Price) {
             this.Display = "INSERT COIN";
-        } else {
+        } else if(selectedProduct.Count > 0) {
             this.Display = "THANK YOU";
             this.InsertedCoinsValue -= selectedProduct.Price;
+            selectedProduct.Count = selectedProduct.Count - 1;
 
             if(this.InsertedCoinsValue > 0) {
                 return this.ReturnCoin();
             }
+        } else
+        {
+            this.Display = "SOLD OUT";
         }
 
         return new ArrayList<Coin>();

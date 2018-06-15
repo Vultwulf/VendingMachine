@@ -68,6 +68,27 @@ public class VendingMachineTest {
         assertEquals(0, this.VendingMachine.InsertedCoinsValue);
     }
 
+
+    @Test
+    public void selectProductSoldOut() {
+        Coin coinAttributes = new Coin(25, 6);
+        Coin coin = this.VendingMachine.IdentifyCoin(coinAttributes);
+
+        this.VendingMachine.InsertCoin(coin);
+        this.VendingMachine.InsertCoin(coin);
+
+        this.VendingMachine.SelectProduct("A2");
+        assertEquals("THANK YOU", this.VendingMachine.Display);
+        assertEquals(0, this.VendingMachine.InsertedCoinsValue);
+
+        this.VendingMachine.InsertCoin(coin);
+        this.VendingMachine.InsertCoin(coin);
+
+        this.VendingMachine.SelectProduct("A2");
+        assertEquals("SOLD OUT", this.VendingMachine.Display);
+
+    }
+
     @Test
     public void returnCoinTest() {
         // Insert three quarters
@@ -91,4 +112,5 @@ public class VendingMachineTest {
         assertEquals(25, returnedCoins.get(0).Value);
         assertEquals(10, returnedCoins.get(1).Value);
     }
+
 }
